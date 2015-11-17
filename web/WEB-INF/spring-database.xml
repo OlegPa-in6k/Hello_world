@@ -14,14 +14,14 @@
           destroy-method="close">
 
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/helloworld" />
+        <property name="url" value="jdbc:mysql://localhost:3306/test" />
         <property name="username" value="root" />
         <property name="password" value="root" />
     </bean>
 
     <!-- Hibernate session factory -->
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mappingResources">
             <list>
@@ -51,7 +51,7 @@
 
     <!-- MUST have transaction manager, using aop and aspects  -->
     <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
@@ -68,5 +68,6 @@
                       expression="execution(* com.mkyong.users.service.*Service.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
     </aop:config>
+
 
 </beans>

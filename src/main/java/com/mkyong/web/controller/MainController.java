@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +43,8 @@ public class MainController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-                              @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request) {
+                              @RequestParam(value = "logout", required = false) String logout,
+                              HttpServletRequest request) {
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
@@ -94,6 +96,25 @@ public class MainController {
         model.setViewName("403");
         return model;
 
+    }
+    @RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
+    public ModelAndView RegistrationPage() {
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Spring Security + Hibernate Example");
+        model.addObject("message", "This is default page!");
+        model.setViewName("registration");
+        return model;
+
+    }
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ModelAndView Registration(@RequestParam String username,
+                                     @RequestParam String password) {
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("login");
+
+        return model;
     }
 
 }
